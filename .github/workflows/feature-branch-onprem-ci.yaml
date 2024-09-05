@@ -18,6 +18,14 @@ jobs:
         with: 
           repository: KRYAYKN/BCN
 
+  setup-docker:
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Add current user to docker-users group
+        run: |
+          net localgroup docker-users $env:USERNAME /add
+        shell: powershell        
+
   build:
     needs: setup-repo
     runs-on: [ self-hosted ]

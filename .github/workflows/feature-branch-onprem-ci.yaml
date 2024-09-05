@@ -7,14 +7,14 @@ on:
 
 jobs:
   setup-repo:
-    runs-on: [self-hosted, windows]
+    runs-on: self-hosted
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
   build:
     needs: setup-repo
-    runs-on: [self-hosted, windows]
+    runs-on: self-hosted
     steps:
       - name: Setup Docker for Business Central On-Premises Sandbox
         run: |
@@ -28,7 +28,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: [self-hosted, windows]
+    runs-on: self-hosted
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -40,7 +40,7 @@ jobs:
   publish:
     needs: test
     if: success()
-    runs-on: [self-hosted, windows]
+    runs-on: self-hosted
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3

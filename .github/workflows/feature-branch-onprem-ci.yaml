@@ -2,12 +2,16 @@ name: Business Central On-Premises Feature Branch CI
 
 on:
   push:
-    branches:
-      - 'feature/*'
-
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+defaults:
+  run:
+    shell: pwsh
 jobs:
   setup-repo:
-    runs-on: [self-hosted,DESKTOP-Q7V0596]
+    runs-on: [ self-hosted ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -16,7 +20,7 @@ jobs:
 
   build:
     needs: setup-repo
-    runs-on: [self-hosted,DESKTOP-Q7V0596]
+    runs-on: [ self-hosted ]
     steps:
       - name: Setup Docker for Business Central On-Premises Sandbox
         run: |
@@ -30,7 +34,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: [self-hosted,DESKTOP-Q7V0596]
+    runs-on: [ self-hosted ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -44,7 +48,7 @@ jobs:
   publish:
     needs: test
     if: success()
-    runs-on: [self-hosted,DESKTOP-Q7V0596]
+    runs-on: [ self-hosted ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

@@ -1,0 +1,50 @@
+name: Business Central On-Premises Feature Branch CI
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+
+jobs:
+  setup-repo:
+    runs-on: [self-hosted, windows]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+  build:
+    needs: setup-repo
+    runs-on: [self-hosted, windows]
+    steps:
+      - name: Setup Docker for Business Central On-Premises Sandbox
+        run: |
+          docker pull mcr.microsoft.com/businesscentral/onprem:latest
+          docker run -d --name bcsandbox-onprem -e accept_eula=Y -e username=admin -e password=YourPassword! -p 7048:7048 -p 7049:7049 -p 8080:8080 -p 443:443 mcr.microsoft.com/businesscentral/onprem:latest
+
+      - name: Compile AL Project
+        run: |
+          cd src
+          docker exec bcsandbox-onprem powershell -Command "C:/scripts/run-al-compile.ps1 -ProjectPath 'C:/src/MyBCProject'"
+
+  test:
+    needs: build
+    runs-on: [self-hosted, windows]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Unit Tests
+        run: |
+          docker exec bcsandbox-onprem powershell -Command "C:/scripts/run-tests.ps1 -TestSuiteName 'DEFAULT'"
+
+  publish:
+    needs: test
+    if: success()
+    runs-on: [self-hosted, windows]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Publish to Business Central On-Premises Sandbox
+        run: |
+          docker exec bcsandbox-onprem powershell -Command "C:/scripts/publish-app.ps1 -AppPath 'C:/src/MyBCProject/*.app' -Environment 'Sandbox'"

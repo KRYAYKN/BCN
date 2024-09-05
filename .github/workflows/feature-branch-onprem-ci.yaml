@@ -23,7 +23,8 @@ jobs:
     steps:
       - name: Add current user to docker-users group
         run: |
-          net localgroup docker-users $env:USERNAME /add
+          net localgroup docker-users "korayayakin" /add
+
         shell: powershell        
 
   build:

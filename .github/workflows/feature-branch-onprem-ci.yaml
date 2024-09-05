@@ -21,7 +21,7 @@ jobs:
       - name: Setup Docker for Business Central On-Premises Sandbox
         run: |
           docker pull mcr.microsoft.com/businesscentral/onprem:latest
-          docker run -d --name bcsandbox-onprem -e accept_eula=Y -e username=admin -e password=YourPassword! -p 7048:7048 -p 7049:7049 -p 8080:8080 -p 443:443 mcr.microsoft.com/businesscentral/onprem:latest
+          docker run -d --name bcsandbox-onprem -e accept_eula=Y -e username=admin -e password=990062tka* -p 7048:7048 -p 7049:7049 -p 8080:8080 -p 443:443 mcr.microsoft.com/businesscentral/onprem:latest
 
       - name: Compile AL Project
         run: |

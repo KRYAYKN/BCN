@@ -10,7 +10,9 @@ jobs:
     runs-on: [self-hosted,DESKTOP-Q7V0596]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with: 
+          repository: KRYAYKN/BCN
 
   build:
     needs: setup-repo
@@ -31,7 +33,9 @@ jobs:
     runs-on: [self-hosted,DESKTOP-Q7V0596]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with: 
+          repository: KRYAYKN/BCN
 
       - name: Run Unit Tests
         run: |
@@ -43,7 +47,9 @@ jobs:
     runs-on: [self-hosted,DESKTOP-Q7V0596]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with: 
+          repository: KRYAYKN/BCN
 
       - name: Publish to Business Central On-Premises Sandbox
         run: |

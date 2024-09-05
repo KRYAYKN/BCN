@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-defaults:
-  run:
-    shell: pwsh
+
+
+
 jobs:
   setup-repo:
     runs-on: [ self-hosted ]

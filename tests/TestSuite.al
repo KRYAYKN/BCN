@@ -8,6 +8,6 @@ codeunit 50101 "My Test Suite"
         HelloWorldPage: Page "Hello World";
     begin
         HelloWorldPage.Open();
-        Assert.AreEqual('Hello, World!', HelloWorldPage.Group.Message);
+        Assert.AreEqual('Hello,korays World!', HelloWorldPage.Group.Message);
     end;
 }

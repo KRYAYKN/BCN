@@ -11,7 +11,7 @@ page 50100 "Hello World"
             group(Group)
             {
                 Caption = 'Group';
-                field("Message"; 'Hello,korayss World!')
+                field("Message"; 'Hello,korays World!')
                 {
                     ApplicationArea = All;
                 }

@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Setup Docker for Business Central On-Premises Sandbox
         run: |
-          docker pull mcr.microsoft.com/businesscentral/onprem:sandbox-ltsc2019
+          docker pull mcr.microsoft.com/businesscentral/onprem:sandbox
           docker run -d --name bcsandbox-onprem -e accept_eula=Y -e username=admin -e password=990062tka* -p 7048:7048 -p 7049:7049 -p 8080:8080 -p 443:443 mcr.microsoft.com/businesscentral/onprem:sandbox-ltsc2019
 
       - name: Compile AL Project

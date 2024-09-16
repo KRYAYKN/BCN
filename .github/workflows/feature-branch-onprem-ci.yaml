@@ -1,11 +1,8 @@
 name: Business Central On-Premises Feature Branch CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  repository_dispatch:
+    types: [issue_created]
 
 
 
@@ -26,9 +23,10 @@ jobs:
     steps:
       - name: Setup Docker for Business Central On-Premises Sandbox
         run: |
-          docker pull mcr.microsoft.com/businesscentral/onprem:sandbox
-          docker run -d --name bcsandbox-onprem -e accept_eula=Y -e username=admin -e password=990062tka* -p 7048:7048 -p 7049:7049 -p 8080:8080 -p 443:443 mcr.microsoft.com/businesscentral/onprem:sandbox-ltsc2019
-
+          install-module BCContainerHelper -force
+          Write-BCContainerHelperWelcomeText
+          $artifactUrl = Get-BcArtifactUrl -type sandbox -country us -select Latest New-BCContainer -accept_eula -containerName mysandbox -artifactUrl $artifactUrl
+        
       - name: Compile AL Project
         run: |
           cd src

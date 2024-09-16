@@ -2,7 +2,7 @@ name: Business Central On-Premises Feature Branch CI
 
 on:
   repository_dispatch:
-    types: [issue_created]
+    types: [issue_updated]
 
 
 
